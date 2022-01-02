@@ -22,21 +22,33 @@ class Order:
             if order_code == code.item_code:
                 return code.item_name, code.price
 
+    def register_order(self):
+        while True:
+            item_code = input("オーダーする商品コードを入力してください。"
+                              "オーダーを終了するときは0と入力してください>>>")
+            if int(item_code) != 0:
+                self.add_item_order(item_code)
+            else:
+                break
+
     def view_item_list(self):
         for item in self.item_order_list:
             print("商品コード:{}".format(item))
 
-    def view_item_oreder(self,order_code):
-        res = self.get_item_order(order_code)
-        print(f"商品名:{res[0]}")
-        print(f"商品価格:{res[1]}")
+    def view_item_oreder(self):
+        for order_code in self.item_order_list:
+            res = self.get_item_order(order_code)
+            if res != None:
+                print(f"商品コード:{order_code} 商品名:{res[0]} 商品価格:{res[1]}")
+            else:
+                print(f"商品コード{order_code}は存在しません。")
 
 
 
 
 
 ### メイン処理
-def main(order_code):
+def main():
     # マスタ登録
     item_master=[]
     item_master.append(Item("001","りんご",100))
@@ -45,16 +57,16 @@ def main(order_code):
 
     # オーダー登録
     order=Order(item_master)
-    order.add_item_order("001")
-    order.add_item_order("002")
-    order.add_item_order("003")
-    # order.get_item_order(order_code)
+    order.register_order()
+    # order.add_item_order()
+    # order.add_item_order("002")
+    # order.add_item_order("003")
 
     # オーダー表示
     order.view_item_list()
-    order.view_item_oreder(order_code)
+    order.view_item_oreder()
 1
 
 if __name__ == "__main__":
-    order_code = input("オーダーする商品コードを入力してください>>>")
-    main(order_code)
+    # order_code = input("オーダーする商品コードを入力してください>>>")
+    main()
