@@ -43,17 +43,15 @@ class Order:
             else:
                 print(f"商品コード{order_code}は存在しません。")
 
-
-
-
+CSV_PATH = "./item_master.csv"
 
 ### メイン処理
 def main():
     # マスタ登録
     item_master=[]
-    item_master.append(Item("001","りんご",100))
-    item_master.append(Item("002","なし",120))
-    item_master.append(Item("003","みかん",150))
+    # item_master.append(Item("001","りんご",100))
+    # item_master.append(Item("002","なし",120))
+    # item_master.append(Item("003","みかん",150))
 
     # オーダー登録
     order=Order(item_master)
