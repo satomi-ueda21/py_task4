@@ -25,10 +25,12 @@ class Item:
 class Order:
     def __init__(self,item_master):
         self.item_order_list=[]
+        self.item_order_count = []
         self.item_master=item_master
 
-    def add_item_order(self,item_code):
+    def add_item_order(self,item_code,item_pieces):
         self.item_order_list.append(item_code)
+        self.item_order_count.append(item_pieces)
 
     def get_item_order(self,order_code):
         for code in self.item_master:
@@ -40,7 +42,8 @@ class Order:
             item_code = input("オーダーする商品コードを入力してください。"
                               "オーダーを終了するときは0と入力してください>>>")
             if int(item_code) != 0:
-                self.add_item_order(item_code)
+                item_pieces = int(input("オーダーする商品の個数を入力してください>>>"))
+                self.add_item_order(item_code, item_pieces)
             else:
                 break
 
@@ -49,13 +52,12 @@ class Order:
             print("商品コード:{}".format(item))
 
     def view_item_oreder(self):
-        for order_code in self.item_order_list:
+        for order_code, item_piece in zip(self.item_order_list, self.item_order_count):
             res = self.get_item_order(order_code)
             if res != None:
-                print(f"商品コード:{order_code} 商品名:{res[0]} 商品価格:{res[1]}")
+                print(f"商品コード:{order_code} 商品名:{res[0]} 価格:{res[1]} 個数:{item_piece}")
             else:
                 print(f"商品コード{order_code}は存在しません。")
-
 
 
 ### メイン処理
@@ -74,7 +76,7 @@ def main():
     # order.add_item_order("003")
 
     # オーダー表示
-    order.view_item_list()
+    # order.view_item_list()
     order.view_item_oreder()
 1
 
