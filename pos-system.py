@@ -52,22 +52,34 @@ class Order:
             print("商品コード:{}".format(item))
 
     def view_item_oreder(self):
-        item_sum = 0
+        self.total_money = 0
+        self.total_items = 0
         for order_code, item_piece in zip(self.item_order_list, self.item_order_count):
             res = self.get_item_order(order_code)
             if res != None:
                 print(f"商品コード:{order_code} 商品名:{res[0]} 価格:{res[1]} 個数:{item_piece}")
-                item_sum = item_sum + int(res[1] * item_piece)
+                self.total_money = self.total_money + int(res[1] * item_piece)
+                self.total_items = self.total_items + int(item_piece)
             else:
                 print(f"商品コード{order_code}は存在しません。")
-        print(f"合計{item_sum}円です")
+        print(f"合計{self.total_items}個。合計金額{self.total_money}円です")
+
+    def account_item_order(self):
+        while True:
+            self.amount_pay = int(input("支払金額を入力してください>>>"))
+            self.change_money = self.amount_pay - self.total_money
+            if self.change_money >= 0:
+                print(f"{self.amount_pay}円いただきました。お釣りは{self.change_money}円です。")
+                break
+            else:
+                print("お金が足りません。もう一度支払金額を入力してください。")
 
 
 ### メイン処理
 def main():
     # マスタ登録
     item_master = item_master_csv()
-    # Item("001","りんご",100))
+    # item_master.append(Item("001","りんご",100))
     # item_master.append(Item("002","なし",120))
     # item_master.append(Item("003","みかん",150))
 
@@ -81,7 +93,8 @@ def main():
     # オーダー表示
     # order.view_item_list()
     order.view_item_oreder()
-1
+    order.account_item_order()
+
 
 if __name__ == "__main__":
     # order_code = input("オーダーする商品コードを入力してください>>>")
