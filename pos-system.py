@@ -52,12 +52,15 @@ class Order:
             print("商品コード:{}".format(item))
 
     def view_item_oreder(self):
+        item_sum = 0
         for order_code, item_piece in zip(self.item_order_list, self.item_order_count):
             res = self.get_item_order(order_code)
             if res != None:
                 print(f"商品コード:{order_code} 商品名:{res[0]} 価格:{res[1]} 個数:{item_piece}")
+                item_sum = item_sum + int(res[1] * item_piece)
             else:
                 print(f"商品コード{order_code}は存在しません。")
+        print(f"合計{item_sum}円です")
 
 
 ### メイン処理
