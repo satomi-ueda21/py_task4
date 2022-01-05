@@ -7,8 +7,9 @@ def item_master_csv():
     df = pd.read_csv(CSV_PATH, dtype={"item_code":object}, header=0)
     for item_code, item_name, price in zip(df["item_code"], df["item_name"], df["price"]):
         item_master.append(Item(item_code, item_name, price))
-    print(df)
-    print(item_master)
+    return item_master
+    # print(df)
+    # print(item_master)
 
 ### 商品クラス
 class Item:
@@ -60,9 +61,8 @@ class Order:
 ### メイン処理
 def main():
     # マスタ登録
-    item_master_csv()
-    item_master=[]
-    # item_master.append(Item("001","りんご",100))
+    item_master = item_master_csv()
+    # Item("001","りんご",100))
     # item_master.append(Item("002","なし",120))
     # item_master.append(Item("003","みかん",150))
 
